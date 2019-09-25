@@ -30,6 +30,7 @@ class StatementOfAccount(models.TransientModel):
     total_tax = fields.Monetary(string='Tax', currency_field='currency_id')
     total_with_tax = fields.Monetary(
         string='Total', currency_field='currency_id')
+    total_quantity = fields.Float('Quantity')
 
     carrier_xlsx_document = fields.Binary(string='Excel File')
     carrier_xlsx_document_name = fields.Char(string='Doc Name', default='0')
@@ -87,6 +88,8 @@ class StatementOfAccount(models.TransientModel):
             self.total_untaxed += inv.amount_untaxed
             self.total_tax += inv.amount_tax
             self.total_with_tax += inv.amount_total
+            for line in inv.invoice_line_ids:
+                self.total_quantity += line.quantity
 
         # print('Total Tax : ')
         # print(str(sum(self.invoice_ids.amount_tax)))
@@ -273,17 +276,63 @@ class StatementOfAccount(models.TransientModel):
                     row_line += 1
 
             else:
-                print('')
+                qty_per_so = 0.0
+                price_per_so = 0.0
+                # for invoice create auto
+                worksheet.write(row_line, 0, str(
+                    inv.date_invoice), content_format)
+                worksheet.write(row_line, 1, inv.number, content_format)
+                worksheet.write(row_line, 2, inv.origin, content_format)
+
+                for line in inv.invoice_line_ids:
+                    worksheet.write(
+                        row_line, 3, line.product_id.name, content_format)
+                    mo_number = line.manufacture_order_id.name if line.manufacture_order_id else ''
+                    worksheet.write(
+                        row_line, 4, mo_number, content_format)
+                    worksheet.write(row_line, 5, line.quantity,
+                                    content_number_format)
+                    worksheet.write(row_line, 6, line.price_unit,
+                                    content_number_format)
+                    worksheet.write(row_line, 7, line.price_subtotal,
+                                    content_number_format)
+                    tax_desc_no_so = ''
+                    print('Tax on Invoice with no SO manual selection')
+                    for tax_in_line in line.invoice_line_tax_ids:
+                        print(tax_in_line.name)
+                        tax_desc_no_so = tax_desc_no_so + tax_in_line.description + '; '
+                        # print(tax_id.description)
+                        # tax_desc_no_so = tax_desc_no_so.join(tax_id.description + '; ')
+                    print('-------------------------------------')
+                    worksheet.write(row_line, 8, tax_desc_no_so,
+                                    content_format)
+
+                    qty_per_so += line.quantity
+                    price_per_so += line.price_subtotal
+                    row_line += 1
+
+                # row total per SO
+                worksheet.merge_range(
+                    row_line, 0, row_line, 4, '', sub_total_format)
+                worksheet.write(row_line, 5, qty_per_so, sub_total_format)
+                worksheet.write(row_line, 6, '', sub_total_format)
+                worksheet.write(row_line, 7, price_per_so,
+                                sub_total_format)
+                worksheet.write(row_line, 8, '', sub_total_format)
+                row_line += 1
 
         # space before total section
         space_format = workbook.add_format()
-        space_format.set_top(1)
+        # space_format.set_top(1)
         space_format.set_bottom(1)
         worksheet.merge_range(
             row_line, 0, row_line, 8, '', space_format)
 
         # TOTAL SECTION
-        row_line += 2
+        row_line += 1
+        worksheet.write(row_line, 3, 'QUANTITY  :', total_format)
+        worksheet.write(row_line, 4, self.total_quantity, total_format)
+
         worksheet.write(row_line, 6, 'DPP', total_format)
         worksheet.write(
             row_line, 7, ': ' + self.env.user.company_id.currency_id.symbol, total_format)
@@ -305,21 +354,30 @@ class StatementOfAccount(models.TransientModel):
         worksheet.write(row_line, 8, self.total_with_tax, total_format)
         row_line += 1
 
+        # space between total and footer
+        worksheet.merge_range(
+            row_line, 0, row_line, 8, '', space_format)
+        row_line += 2
+
         # FOOTER SECTION
         if self.env.user.company_id.invoice_footer_note:
             footnote_format = workbook.add_format()
             footnote_format.set_font_size('8')
+            footnote_format.set_align('left')
+            footnote_format.set_align('top')
 
-            worksheet.write(
-                row_line, 0, self.env.user.company_id.invoice_footer_note, content_format)
-            
+            worksheet.merge_range(
+                row_line, 0, row_line+7, 3, self.env.user.company_id.invoice_footer_note, content_format)
 
             signature_format = workbook.add_format()
             signature_format.set_align('center')
 
-            worksheet.merge_range(row_line,5,row_line,6, 'Issued by,', signature_format)
-            worksheet.merge_range(row_line+7,5,row_line+7,6, '________________________,', signature_format)
-            worksheet.merge_range(row_line+8,5,row_line+8,6, 'Authorized Signature,', signature_format)
+            worksheet.merge_range(row_line, 5, row_line,
+                                  6, 'Issued by,', signature_format)
+            worksheet.merge_range(
+                row_line+7, 5, row_line+7, 6, '________________________,', signature_format)
+            worksheet.merge_range(row_line+8, 5, row_line+8,
+                                  6, 'Authorized Signature,', signature_format)
 
         workbook.close()
 
