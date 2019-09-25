@@ -8,6 +8,7 @@
             <field name="priority">20</field>
             <field name="arch" type="xml">
                 <xpath expr="//field[@name='payment_term_id']" position="after">
+                    <field name="manufacture_type" />
                     <field name="sale_order_ids" attrs="{'readonly': [('state', '!=', 'draft')]}" widget="many2many_tags" options="{'no_open': True, 'no_create': True}" domain="['&amp;',('partner_id', '=', partner_id),('invoice_status','=','to invoice'),('state','in', ['sale','done'])]" />
                 </xpath>
 

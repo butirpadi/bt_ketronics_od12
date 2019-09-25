@@ -7,6 +7,8 @@ class ResCompany(models.Model):
 
     invoice_footer_note = fields.Text(string='Invoice Footer')
     invoice_footer_html_note = fields.Html('Invoice Note', translate=html_translate)
+    # npwp_num = fields.Char('NPWP')
+    fax = fields.Char('Fax')
     
     
     

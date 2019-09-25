@@ -31,6 +31,7 @@
         # 'views/templates.xml',
         # reports
         'reports/statement_of_account_report.xml',
+        'reports/customer_account_invoice_report.xml',
         'reports/action_report.xml',
     ],
     # only loaded in demonstration mode

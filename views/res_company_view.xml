@@ -14,6 +14,15 @@
                         <!-- <field name="invoice_footer_html_note" placeholder="Invoice Footer Note..." /> -->
                     </page>
                 </xpath>
+
+                <!-- <xpath expr="//field[@name='partner_id']" position="after">
+                    <field name="npwp_num"/>
+                </xpath> -->
+
+                <xpath expr="//field[@name='phone']" position="after">
+                    <field name="fax"/>
+                </xpath>
+
             </field>
         </record>
 

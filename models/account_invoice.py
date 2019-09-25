@@ -11,6 +11,11 @@ class AccountInvoice(models.Model):
         string='Auto-Complete'
     )
 
+    manufacture_type = fields.Selection([
+        ('in_house', 'In House'),
+        ('subcon', 'Subconract'),
+    ], string='Manufacture Type')
+
     def action_invoice_open(self):
 
         # super(SaleOrder, self).action_cancel()
@@ -27,8 +32,8 @@ class AccountInvoice(models.Model):
             for inv_line in self.invoice_line_ids:
                 pprint(inv_line)
                 # inv_line.sale_order_ids = (4,inv_line.sale_line_id.id)
-                inv_line.sale_line_id.invoice_lines = [(4,inv_line.id)]
-            
+                inv_line.sale_line_id.invoice_lines = [(4, inv_line.id)]
+
     @api.onchange('sale_order_ids')
     def _onchange_invoice_sale_order(self):
         new_lines = self.env['account.invoice.line']
