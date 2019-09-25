@@ -3,11 +3,10 @@
     'name': "Ketronics Odoo 12",
 
     'summary': """
-        Short (1 phrase/line) summary of the module's purpose, used as
-        subtitle on modules listing or apps.openerp.com""",
+        PT. Ketronics Indonesia Custom Module""",
 
     'description': """
-        Long description of module's purpose
+        PT. Ketronics Indonesia Custom Module
     """,
 
     'author': "butirpadi@gmail.com",
@@ -20,13 +19,19 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'product', ],
+    'depends': ['base', 'stock', 'account', 'sale_management', 'mrp'],
 
     # always loaded
     'data': [
         # 'security/ir.model.access.csv',
-        # 'views/views.xml',
+        # views
+        'views/res_company_view.xml',
+        'views/account_invoice_view.xml',
+        'views/statement_of_account_view.xml',
         # 'views/templates.xml',
+        # reports
+        'reports/statement_of_account_report.xml',
+        'reports/action_report.xml',
     ],
     # only loaded in demonstration mode
     'demo': [
