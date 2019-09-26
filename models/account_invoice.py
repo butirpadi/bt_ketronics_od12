@@ -16,6 +16,8 @@ class AccountInvoice(models.Model):
         ('subcon', 'Subconract'),
     ], string='Manufacture Type')
 
+    authorized_name = fields.Char('Authorized by,')
+
     def action_invoice_open(self):
 
         # super(SaleOrder, self).action_cancel()

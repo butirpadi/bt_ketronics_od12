@@ -60,7 +60,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td colspan="6" class="text-center" >
+                                    <td colspan="6" class="text-center">
                                         <h5>INVOICE</h5>
                                     </td>
                                 </tr>
@@ -70,7 +70,7 @@
                                             <div class="col-12">
                                                 <table class="table table-borderless table-sm">
                                                     <tbody>
-                                                        <tr class="data-content" >
+                                                        <tr class="data-content">
                                                             <td style="width:15%;">
                                                                 <strong>Reff</strong>
                                                             </td>
@@ -198,8 +198,8 @@
                                             <div class="col-6">
                                                 <table class="table table-sm table-borderless">
                                                     <tbody>
-                                                        <tr class="data-content" >
-                                                            <td style="width:150px;" >
+                                                        <tr class="data-content">
+                                                            <td style="width:150px;">
                                                                 <strong>TOTAL</strong>
                                                             </td>
                                                             <td style="width:20px;">
@@ -212,7 +212,7 @@
                                                                 <t t-esc="'{0:,.2f}'.format(doc.amount_untaxed)" />
                                                             </td>
                                                         </tr>
-                                                        <tr class="data-content" >
+                                                        <tr class="data-content">
                                                             <td>
                                                                 <strong>VAT</strong>
                                                             </td>
@@ -226,7 +226,7 @@
                                                                 <t t-esc="'{0:,.2f}'.format(doc.amount_tax)" />
                                                             </td>
                                                         </tr>
-                                                        <tr class="data-content" >
+                                                        <tr class="data-content">
                                                             <td>
                                                                 <strong>GRAND TOTAL</strong>
                                                             </td>
@@ -276,7 +276,14 @@
                                                 <br/>
                                                 <br/>
                                                 <br/>
-                                ______________________________
+                                                <t t-if="doc.authorized_name">
+                                                    <span>( </span>
+                                                    <span t-field="doc.authorized_name" />
+                                                    <span>) </span>
+                                                </t>
+                                                <t t-else="doc.authorized_name">
+                                                    ______________________________
+                                                </t>
                                             </div>
                                         </div>
                                     </td>

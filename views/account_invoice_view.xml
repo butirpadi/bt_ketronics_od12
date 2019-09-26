@@ -10,6 +10,7 @@
                 <xpath expr="//field[@name='payment_term_id']" position="after">
                     <field name="manufacture_type" />
                     <field name="sale_order_ids" attrs="{'readonly': [('state', '!=', 'draft')]}" widget="many2many_tags" options="{'no_open': True, 'no_create': True}" domain="['&amp;',('partner_id', '=', partner_id),('invoice_status','=','to invoice'),('state','in', ['sale','done'])]" />
+                    <field name="authorized_name" />
                 </xpath>
 
                 <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='product_id']" position="before">
