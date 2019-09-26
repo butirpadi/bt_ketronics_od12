@@ -1,19 +1,23 @@
 <odoo>
-<data>
-<!-- model.name inherit form view -->
-<record id="bt_kt_stock_view_picking_form" model="ir.ui.view">
-    <field name="name">bt_kt_stock_view_picking_form</field>
-    <field name="model">stock.picking</field>
-    <field name="inherit_id" ref="stock.view_picking_form"/>
-    <field name="priority">20</field>
-    <field name="arch" type="xml">
-        <!-- Add your xpath here -->
-        <xpath expr="//field[@name='move_ids_without_package']/tree/field[@name='quantity_done']" position="after">
-            <field name="pack_qty"/>
-            <field name="gross_weight"/>
-            <field name="net_weight"/>
-        </xpath>
-    </field>
-</record>
-</data>
+    <data>
+        <!-- model.name inherit form view -->
+        <record id="bt_kt_stock_view_picking_form" model="ir.ui.view">
+            <field name="name">bt_kt_stock_view_picking_form</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field name="priority">20</field>
+            <field name="arch" type="xml">
+                <!-- Add your xpath here -->
+                <xpath expr="//field[@name='move_ids_without_package']/tree/field[@name='quantity_done']" position="after">
+                    <field name="pack_qty"/>
+                    <field name="gross_weight"/>
+                    <field name="net_weight"/>
+                </xpath>
+
+                <xpath expr="//field[@name='picking_type_id']" position="after">
+                    <field name="sender_by"/>
+                </xpath>
+            </field>
+        </record>
+    </data>
 </odoo>
