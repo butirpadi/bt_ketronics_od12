@@ -3,7 +3,7 @@
         <template id="statement_of_account_report">
             <t t-foreach="docs" t-as="doc">
                 <t t-call="web.basic_layout">
-                    <div class="page" style="font-size:10pt;font-family:roman;">
+                    <div class="page" style="font-size:10pt;">
                         <style type="text/css">
                             table.table-bordered, table.table-bordered thead tr th, table.table-bordered tbody tr td {
                                 border: black thin solid !important;
