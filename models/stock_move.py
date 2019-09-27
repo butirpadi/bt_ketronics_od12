@@ -14,7 +14,8 @@ class StockMove(models.Model):
     @api.depends('quantity_done')
     def _compute_pack_weight(self):
         for rec in self:
-            rec.pack_qty = rec.quantity_done / rec.product_id.qty_per_pack
+            rec.pack_qty = rec.quantity_done / \
+                rec.product_id.qty_per_pack if rec.quantity_done > 0 else 0
             rec.net_weight = rec.quantity_done * rec.product_id.weight
             rec.gross_weight = rec.net_weight + \
                 (rec.product_id.pack_weight * rec.pack_qty)
