@@ -30,6 +30,7 @@
         'views/statement_of_account_view.xml',
         'views/product_template_view.xml',
         'views/stock_picking_view.xml',
+        'views/sale_order_view.xml',
         # 'views/templates.xml',
         # reports
         'reports/statement_of_account_report.xml',

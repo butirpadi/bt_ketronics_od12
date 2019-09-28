@@ -6,3 +6,4 @@ from . import account_invoice
 from . import product_template
 from . import stock_picking
 from . import stock_move
+from . import sale_order

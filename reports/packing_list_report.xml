@@ -29,7 +29,7 @@
                         <table class="table table-bordered">
                             <tbody>
                                 <tr>
-                                    <td colspan="7">
+                                    <td colspan="8">
                                         <h5 t-field="user.company_id.name" />
                                         <span t-field="user.company_id.street" />
                                         <t t-if="user.company_id.street2">
@@ -54,14 +54,15 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td colspan="7">
+                                    <td colspan="8">
                                         <table class="table table-sm table-borderless">
                                             <tbody>
                                                 <tr class="data-content">
                                                     <td rowspan="3" style="width:70%;">
                                                         <strong>SHIP TO : </strong>
                                                         <br/>
-                                                        <span t-field="doc.partner_id" /><br/>
+                                                        <span t-field="doc.partner_id" />
+                                                        <br/>
                                                         <span t-field="doc.partner_id.street" />
                                                         <t t-if="doc.partner_id.street2">
                                                             <span>, </span>
@@ -114,7 +115,7 @@
                                     <td>
                                         <strong>Part No</strong>
                                     </td>
-                                    <td>
+                                    <td colspan="2" >
                                         <strong>Description</strong>
                                     </td>
                                     <td>
@@ -150,6 +151,19 @@
                                         <td>
                                             <span t-field="move.product_id.name" />
                                         </td>
+                                        <td class="text-center" >
+                                            <t t-if="move.sale_line_id.order_id.manufacture_type == 'in_house'">
+                                                <t t-if="str(move.sale_line_id.order_id.client_order_ref).lstrip().rstrip() != ''">
+                                                    <span t-field="move.sale_line_id.order_id.client_order_ref" />
+                                                </t>
+                                                <t t-elif="str(move.sale_line_id.order_id.client_order_ref).lstrip().rstrip() != ''">
+                                                    <span t-field="move.sale_line_id.order_id.name" />
+                                                </t>
+                                            </t>
+                                            <t t-if="move.sale_line_id.order_id.manufacture_type == 'subcon'">
+                                                <span t-field="move.manufacture_order_id.name" />
+                                            </t>
+                                        </td>
                                         <td class="text-right">
                                             <span t-field="move.quantity_done" />
                                         </td>
@@ -170,7 +184,7 @@
                                     <t t-set="rownum" t-value="rownum + 1"/>
                                 </t>
                                 <tr>
-                                    <td colspan="3" class="text-center">
+                                    <td colspan="4" class="text-center">
                                         <strong>TOTAL</strong>
                                     </td>
                                     <td class="text-right">
@@ -188,7 +202,7 @@
                                 </tr>
                                 <!-- Approval -->
                                 <tr>
-                                    <td colspan="7">
+                                    <td colspan="8">
                                         <div class="row">
                                             <div class="col-6 text-center">
                                                 Receive,

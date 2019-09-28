@@ -10,6 +10,8 @@ class StockMove(models.Model):
         'Gross Weight', compute='_compute_pack_weight', store=True, default=0.00)
     net_weight = fields.Float(
         'Net Weight', compute="_compute_pack_weight", store=True, default=0.00)
+    
+    manufacture_order_id = fields.Many2one('mrp.production', string='M/Order')
 
     @api.depends('quantity_done')
     def _compute_pack_weight(self):
