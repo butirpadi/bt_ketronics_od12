@@ -13,6 +13,8 @@ class StockMove(models.Model):
     
     manufacture_order_id = fields.Many2one('mrp.production', string='M/Order')
 
+    product_code = fields.Char('Product Code', related="product_id.default_code")
+
     @api.depends('quantity_done')
     def _compute_pack_weight(self):
         for rec in self:
