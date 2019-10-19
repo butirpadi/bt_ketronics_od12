@@ -1,4 +1,5 @@
 from odoo import api, fields, models
+import math 
 
 
 class StockMove(models.Model):
@@ -23,7 +24,7 @@ class StockMove(models.Model):
 
     # order_id = fields.Many2one('sale.order', related="sale_line_id.order_id", string="SO Reff")
     # client_order_ref = fields.Char(compute='_compute_client_order_ref', string='Customer Reff', store=True)
-    
+
     # @api.multi
     # @api.depends('sale_line_id')
     # def _compute_client_order_ref(self):
@@ -36,7 +37,6 @@ class StockMove(models.Model):
     # @api.onchange('sale_line_id')
     # def _onchange_sale_line(self):
     #     self.sale_order_id = self.sale_line_id.order_id.id
-    
 
     @api.depends('sale_line_id')
     def _compute_manufacture_type(self):
@@ -48,8 +48,6 @@ class StockMove(models.Model):
     @api.depends('quantity_done')
     def _compute_pack_weight(self):
         for rec in self:
-            rec.pack_qty = rec.quantity_done / \
-                rec.product_id.qty_per_pack if rec.quantity_done > 0 else 0
+            rec.pack_qty = math.ceil(rec.quantity_done / rec.product_id.qty_per_pack) if rec.quantity_done > 0 else 0
             rec.net_weight = rec.quantity_done * rec.product_id.weight
-            rec.gross_weight = rec.net_weight + \
-                (rec.product_id.pack_weight * rec.pack_qty)
+            rec.gross_weight = rec.net_weight + (rec.product_id.pack_weight * rec.pack_qty)

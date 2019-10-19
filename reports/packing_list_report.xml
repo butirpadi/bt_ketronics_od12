@@ -181,10 +181,10 @@
                                             
                                         </td>
                                         <td class="text-right">
-                                            <span t-field="move.quantity_done" />
+                                            <strong t-esc="'{0:,.2f}'.format(move.quantity_done)" />
                                         </td>
                                         <td class="text-right">
-                                            <strong t-esc="'{0:,.2f}'.format(move.pack_qty)" />
+                                            <strong t-esc="'{0:,.0f}'.format(move.pack_qty)" />
                                         </td>
                                         <td class="text-right">
                                             <strong t-esc="'{0:,.2f}'.format(move.gross_weight)" />
@@ -207,7 +207,7 @@
                                         <strong t-esc="'{0:,.2f}'.format(total_qty_done)" />
                                     </td>
                                     <td class="text-right">
-                                        <strong t-esc="'{0:,.2f}'.format(total_pack)" />
+                                        <strong t-esc="'{0:,.0f}'.format(total_pack)" />
                                     </td>
                                     <td class="text-right">
                                         <strong t-esc="'{0:,.2f}'.format(total_gross)" />
