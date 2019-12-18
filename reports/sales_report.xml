@@ -1,0 +1,59 @@
+<odoo>
+    <data>
+        <template id="butir_sales_report_template">
+            <t t-call="web.basic_layout">
+                <t t-foreach="docs" t-as="doc">
+                    <div class="page" style="font-size:10pt;">
+                        <div class="text-center">
+                            <h5>LAPORAN PENJUALAN</h5>
+                            <h5 t-field="user.company_id.name" />
+                            <span t-field="doc.date_start" />
+                            <span> - </span>
+                            <span t-field="doc.date_to" />
+                            <br/>
+                            <![CDATA[&nbsp;]]>
+                        </div>
+
+                        <div cass="row">
+                            <div class="col-xs-12">
+                                <table class="table table-bordered table-condensed ">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center" >
+                                                <strong>BULAN</strong>
+                                            </th>
+                                            <th class="text-center" >
+                                                <strong>CUSTOMER</strong>
+                                            </th>
+                                            <th class="text-center" >
+                                                <strong>DPP (USD)</strong>
+                                            </th>
+                                            <th class="text-center" >
+                                                <strong>PPN (USD)</strong>
+                                            </th>
+                                            <th class="text-center" >
+                                                <strong>DPP + PPN (USD)</strong>
+                                            </th>
+                                            <th class="text-center" >
+                                                <strong>DPP (IDR)</strong>
+                                            </th>
+                                            <th class="text-center" >
+                                                <strong>PPN (IDR)</strong>
+                                            </th>
+                                            <th class="text-center" >
+                                                <strong>DPP + PPN (IDR)</strong>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>

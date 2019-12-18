@@ -31,12 +31,14 @@
         'views/product_template_view.xml',
         'views/stock_picking_view.xml',
         'views/sale_order_view.xml',
+        'views/sales_report_wizard_view.xml',
         # 'views/templates.xml',
         # reports
         'reports/statement_of_account_report.xml',
         'reports/customer_account_invoice_report.xml',
         'reports/packing_list_report.xml',
         'reports/action_report.xml',
+        'reports/sales_report.xml',
     ],
     # only loaded in demonstration mode
     'demo': [

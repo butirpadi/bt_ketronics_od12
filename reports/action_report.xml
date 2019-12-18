@@ -37,6 +37,17 @@
             name="bt_ketronics_od12.packing_list_report" 
             file="bt_ketronics_od12.packing_list_report"
             paperformat="bt_generic_paperformat" />
+        
+        <report 
+            id="action_butir_sales_report" 
+            model="butir.sales.report.wizard" 
+            string="Sales Report" 
+            report_type="qweb-pdf" 
+            attachment_use="False"
+            print_report_name="'Sales_Report_%s' % object.date_start" 
+            name="bt_ketronics_od12.butir_sales_report_template" 
+            file="bt_ketronics_od12.butir_sales_report_template"
+            paperformat="bt_generic_paperformat" />
 
         
         <!-- Hide Action Report Bawaan -->
